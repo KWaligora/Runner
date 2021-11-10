@@ -9,6 +9,7 @@ void ARunnerPlayerController::BeginPlay()
 	ensure(PlayerBase != nullptr);
 	
 	CalculatePaths();
+	MovePlayerToMiddlePath();
 }
 
 void ARunnerPlayerController::CalculatePaths()
@@ -20,9 +21,34 @@ void ARunnerPlayerController::CalculatePaths()
 	}
 }
 
+void ARunnerPlayerController::MovePlayerToMiddlePath()
+{
+	if(Paths.Num() <= 0) return;
+	
+	CurrentPath = FMath::DivideAndRoundDown(PathCount, 2);	
+	PlayerBase->SetActorLocation(Paths[CurrentPath]);
+}
+
 void ARunnerPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 
-	//InputComponent->BindAction("MoveLeft", IE_Pressed, )
+	InputComponent->BindAction("MoveLeft", IE_Pressed, this, &ARunnerPlayerController::MoveLeft);
+	InputComponent->BindAction("MoveRight", IE_Pressed, this, &ARunnerPlayerController::MoveRight);
+}
+
+void ARunnerPlayerController::MoveLeft()
+{
+	if(CurrentPath <= 0) return;
+
+	CurrentPath--;
+	PlayerBase->SetActorLocation(Paths[CurrentPath]);
+}
+
+void ARunnerPlayerController::MoveRight()
+{
+	if(CurrentPath >= Paths.Num() - 1) return;
+
+	CurrentPath++;
+	PlayerBase->SetActorLocation(Paths[CurrentPath]);
 }

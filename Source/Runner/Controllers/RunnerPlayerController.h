@@ -17,18 +17,20 @@ private:
 	
 // Movement variables
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement", meta = (AllowPrivateAccess = "true"))
-	FVector CurrentPath = FVector(0,0,120);
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement", meta = (AllowPrivateAccess = "true"))
-	float PathCount = 3;
+	int PathCount = 3;
 	// Size of all paths together
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement", meta = (AllowPrivateAccess = "true"))	
 	float TrackSize = 800;
 
 	TArray<FVector> Paths;
+	int CurrentPath;
 
 	
 // Methods	
 	virtual void BeginPlay() override;
 	void CalculatePaths();
+	void MovePlayerToMiddlePath();
 	virtual void SetupInputComponent() override;
+	void MoveLeft();
+	void MoveRight();
 };
