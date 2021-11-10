@@ -6,9 +6,6 @@
 #include "GameFramework/GameModeBase.h"
 #include "RunnerGameModeBase.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class RUNNER_API ARunnerGameModeBase : public AGameModeBase
 {
