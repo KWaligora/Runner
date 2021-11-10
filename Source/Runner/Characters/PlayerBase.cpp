@@ -13,6 +13,9 @@ APlayerBase::APlayerBase()
 // Sets components
 	CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Capsule Component"));
 	RootComponent = CapsuleComponent;
+	CapsuleComponent->SetSimulatePhysics(true);
+	CapsuleComponent->BodyInstance.bLockXRotation = true;
+	CapsuleComponent->BodyInstance.bLockYRotation = true;
 	
 	Mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
 	Mesh->SetupAttachment(RootComponent);
