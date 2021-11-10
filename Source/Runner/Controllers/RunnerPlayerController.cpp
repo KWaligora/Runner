@@ -1,6 +1,13 @@
 #include "RunnerPlayerController.h"
 #include "Runner/Characters/PlayerBase.h"
 
+void ARunnerPlayerController::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+
+	HandleMovement(DeltaSeconds);
+}
+
 void ARunnerPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -11,10 +18,10 @@ void ARunnerPlayerController::BeginPlay()
 	CalculatePaths();
 	MovePlayerToMiddlePath();
 }
-
+// Calculate path's size and location
 void ARunnerPlayerController::CalculatePaths()
 {
-	float PathSize = TrackSize / PathCount;
+	PathSize = TrackSize / PathCount;
 	for(int i = 0; i < PathCount; i++)
 	{
 		Paths.Add(FVector(0, PathSize / 2 + i * PathSize, 110));
@@ -40,15 +47,19 @@ void ARunnerPlayerController::SetupInputComponent()
 void ARunnerPlayerController::MoveLeft()
 {
 	if(CurrentPath <= 0) return;
-
 	CurrentPath--;
-	PlayerBase->SetActorLocation(Paths[CurrentPath]);
 }
 
 void ARunnerPlayerController::MoveRight()
 {
 	if(CurrentPath >= Paths.Num() - 1) return;
-
 	CurrentPath++;
-	PlayerBase->SetActorLocation(Paths[CurrentPath]);
 }
+// Interpolate to CurrentPath
+void ARunnerPlayerController::HandleMovement(float DeltaSeconds)
+{
+	FVector CurrentLocation = PlayerBase->GetActorLocation();
+	CurrentLocation.Y = FMath::FInterpConstantTo(CurrentLocation.Y, Paths[CurrentPath].Y, DeltaSeconds, PathSize * PathChangeSpeed);
+	PlayerBase->SetActorLocation(CurrentLocation);
+}
+
