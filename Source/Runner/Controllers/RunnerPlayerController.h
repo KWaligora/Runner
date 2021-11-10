@@ -13,7 +13,7 @@ class RUNNER_API ARunnerPlayerController : public APlayerController
 
 private:
 	UPROPERTY()
-	class APlayerCharacter* PlayerBase;
+	class APlayerCharacter* PlayerChar;
 	
 // Movement variables
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement", meta = (AllowPrivateAccess = "true"))
@@ -24,10 +24,11 @@ private:
 	// Result is 1 * PathChangeSpeed, in seconds
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement", meta = (AllowPrivateAccess = "true"))	
 	float PathChangeSpeed = 2;
-
+	
 	TArray<FVector> Paths;
 	int CurrentPath;
 	float PathSize;
+	
 
 	
 // Methods
@@ -41,4 +42,5 @@ private:
 	void MoveRight();
 	// Interpolate to CurrentPath
 	void HandleMovement(float DeltaSeconds);
+	void Jump();
 };

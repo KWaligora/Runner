@@ -12,8 +12,8 @@ void ARunnerPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	PlayerBase = Cast<APlayerCharacter>(GetCharacter());
-	ensure(PlayerBase != nullptr);
+	PlayerChar = Cast<APlayerCharacter>(GetCharacter());
+	ensure(PlayerChar != nullptr);
 	
 	CalculatePaths();
 	MovePlayerToMiddlePath();
@@ -33,7 +33,7 @@ void ARunnerPlayerController::MovePlayerToMiddlePath()
 	if(Paths.Num() <= 0) return;
 	
 	CurrentPath = FMath::DivideAndRoundDown(PathCount, 2);	
-	PlayerBase->SetActorLocation(Paths[CurrentPath]);
+	PlayerChar->SetActorLocation(Paths[CurrentPath]);
 }
 
 void ARunnerPlayerController::SetupInputComponent()
@@ -42,6 +42,7 @@ void ARunnerPlayerController::SetupInputComponent()
 
 	InputComponent->BindAction("MoveLeft", IE_Pressed, this, &ARunnerPlayerController::MoveLeft);
 	InputComponent->BindAction("MoveRight", IE_Pressed, this, &ARunnerPlayerController::MoveRight);
+	InputComponent->BindAction("Jump", IE_Pressed, this, &ARunnerPlayerController::Jump);
 }
 
 void ARunnerPlayerController::MoveLeft()
@@ -58,8 +59,13 @@ void ARunnerPlayerController::MoveRight()
 // Interpolate to CurrentPath
 void ARunnerPlayerController::HandleMovement(float DeltaSeconds)
 {
-	FVector CurrentLocation = PlayerBase->GetActorLocation();
+	FVector CurrentLocation = PlayerChar->GetActorLocation();
 	CurrentLocation.Y = FMath::FInterpConstantTo(CurrentLocation.Y, Paths[CurrentPath].Y, DeltaSeconds, PathSize * PathChangeSpeed);
-	PlayerBase->SetActorLocation(CurrentLocation);
+	PlayerChar->SetActorLocation(CurrentLocation);
+}
+
+void ARunnerPlayerController::Jump()
+{
+	PlayerChar->Jump();
 }
 
