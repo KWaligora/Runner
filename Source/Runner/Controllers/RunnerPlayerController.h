@@ -13,7 +13,7 @@ class RUNNER_API ARunnerPlayerController : public APlayerController
 
 private:
 	UPROPERTY()
-	class APlayerBase* PlayerBase;
+	class APlayerCharacter* PlayerBase;
 	
 // Movement variables
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement", meta = (AllowPrivateAccess = "true"))

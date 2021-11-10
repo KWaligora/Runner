@@ -1,5 +1,5 @@
 #include "RunnerPlayerController.h"
-#include "Runner/Characters/PlayerBase.h"
+#include "Runner/Characters/PlayerCharacter.h"
 
 void ARunnerPlayerController::Tick(float DeltaSeconds)
 {
@@ -12,7 +12,7 @@ void ARunnerPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	PlayerBase = Cast<APlayerBase>(GetPawn());
+	PlayerBase = Cast<APlayerCharacter>(GetCharacter());
 	ensure(PlayerBase != nullptr);
 	
 	CalculatePaths();

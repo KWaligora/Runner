@@ -33,7 +33,6 @@ APlayerBase::APlayerBase()
 void APlayerBase::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
