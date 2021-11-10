@@ -16,6 +16,8 @@ APlayerBase::APlayerBase()
 	CapsuleComponent->SetSimulatePhysics(true);
 	CapsuleComponent->BodyInstance.bLockXRotation = true;
 	CapsuleComponent->BodyInstance.bLockYRotation = true;
+	CapsuleComponent->BodyInstance.SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	CapsuleComponent->BodyInstance.SetResponseToAllChannels(ECR_Block);
 	
 	Mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
 	Mesh->SetupAttachment(RootComponent);
