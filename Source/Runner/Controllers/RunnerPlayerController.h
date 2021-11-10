@@ -28,6 +28,7 @@ private:
 	
 // Methods	
 	virtual void BeginPlay() override;
+	// Calculate path's size and location
 	void CalculatePaths();
 	void MovePlayerToMiddlePath();
 	virtual void SetupInputComponent() override;
