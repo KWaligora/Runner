@@ -24,7 +24,7 @@ void ARunnerPlayerController::CalculatePaths()
 	PathSize = TrackSize / PathCount;
 	for(int i = 0; i < PathCount; i++)
 	{
-		Paths.Add(FVector(0, PathSize / 2 + i * PathSize, 110));
+		Paths.Add(FVector(0, PathSize / 2 + i * PathSize, 130));
 	}
 }
 
