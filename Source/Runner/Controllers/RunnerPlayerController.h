@@ -28,11 +28,8 @@ private:
 	TArray<FVector> Paths;
 	int CurrentPath;
 	float PathSize;
-
-
 	
 // Methods
-	
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void BeginPlay() override;
 	// Calculate path's size and location
