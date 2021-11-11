@@ -19,6 +19,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -42,4 +43,5 @@ private:
 	// Spawn first 3 platforms
 	void InitLevel();
 	void SpawnPlatform();
+	void CheckOccupied();
 };

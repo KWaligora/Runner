@@ -24,14 +24,15 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	// Allow move or stop move
 	void SetMovement(float Speed, bool Value);
+	float GetOriginOffset() { return OriginOffset; }
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* StaticMesh;
 
-	// To calculate how much time is needed to pass
+	// Length between platforms edge and origin
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Movement", meta = (AllowPrivateAccess = "true"))
-	float PlatformLength;
+	float OriginOffset;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement", meta = (AllowPrivateAccess = "true"))
 	bool CanMove = false;

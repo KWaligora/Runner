@@ -28,6 +28,7 @@ void APlatformManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	CheckOccupied();
 }
 
 // Get all platforms from scene to array
@@ -58,6 +59,18 @@ void APlatformManager::InitLevel()
 	{
 		FreePlatforms.RemoveAt(i);
 		OccupiedPlatforms[i]->SetMovement(PlatformSpeed, true);
+	}
+}
+
+void APlatformManager::CheckOccupied()
+{
+	for(int i = 0; i < OccupiedPlatforms.Num(); i++)
+	{
+		if(OccupiedPlatforms[i]->GetActorLocation().X < -5000)
+		{
+			FreePlatforms.Add(OccupiedPlatforms[i]);
+			OccupiedPlatforms.RemoveAt(i);
+		}
 	}
 }
 
