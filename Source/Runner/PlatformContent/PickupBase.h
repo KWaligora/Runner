@@ -4,10 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Runner/PlatformContent/PlatformContent.h"
 #include "PickupBase.generated.h"
 
+
 UCLASS()
-class RUNNER_API APickupBase : public AActor
+class RUNNER_API APickupBase : public AActor, public IPlatformContent
 {
 	GENERATED_BODY()
 	
