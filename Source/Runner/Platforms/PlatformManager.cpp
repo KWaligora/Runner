@@ -20,10 +20,6 @@ void APlatformManager::BeginPlay()
 	Super::BeginPlay();
 
 	FindPlatforms();
-	
-	int num =  Platforms.Num();
-
-	UE_LOG(LogTemp, Warning, TEXT("%d"), num);
 }
 
 // Called every frame
@@ -33,6 +29,7 @@ void APlatformManager::Tick(float DeltaTime)
 
 }
 
+// Get all platforms from scene to array
 void APlatformManager::FindPlatforms()
 {
 	TArray<AActor*> OutActors;

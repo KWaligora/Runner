@@ -29,5 +29,6 @@ private:
 	
 	TArray<class APlatformBase*> Platforms;
 
+	// Get all platforms from scene to array
 	void FindPlatforms();
 };

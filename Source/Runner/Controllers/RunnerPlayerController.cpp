@@ -61,6 +61,7 @@ void ARunnerPlayerController::HandleMovement(float DeltaSeconds)
 {
 	FVector CurrentLocation = PlayerChar->GetActorLocation();
 	CurrentLocation.Y = FMath::FInterpConstantTo(CurrentLocation.Y, Paths[CurrentPath].Y, DeltaSeconds, PathSize * PathChangeSpeed);
+	CurrentLocation.X = 0;
 	PlayerChar->SetActorLocation(CurrentLocation);
 }
 

@@ -25,5 +25,28 @@ void APlatformBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	HandleMove(DeltaTime);	
+}
+
+// Allow move or stop move
+void APlatformBase::SetMovement(bool Value)
+{
+	CanMove = Value;
+}
+// Allow move or stop move and set movement speed
+void APlatformBase::SetMovement(float Speed, bool Value)
+{
+	MovementSpeed = Speed;
+	CanMove = Value;	
+}
+
+void APlatformBase::HandleMove(float DeltaTime)
+{
+	if(CanMove)
+	{
+		FVector CurrentLocation = GetActorLocation();
+		CurrentLocation.X -= MovementSpeed * DeltaTime;
+		SetActorLocation(CurrentLocation);
+	}
 }
 
