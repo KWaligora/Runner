@@ -6,7 +6,6 @@
 #include "Components/ActorComponent.h"
 #include "PlatformContentManager.generated.h"
 
-
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class RUNNER_API UPlatformContentManager : public UActorComponent
 {
@@ -23,5 +22,8 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	
+
+private:
+	//TArray<class IPlatformContent> OccupiedContent;
+	//TArray<class IPlatformContent> FreeContent;
 };

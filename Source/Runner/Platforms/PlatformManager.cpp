@@ -64,7 +64,6 @@ void APlatformManager::CheckOccupied()
 void APlatformManager::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	UE_LOG(LogTemp, Warning, TEXT("end Overlap"));
 	if(OtherActor != nullptr && OtherActor != this)
 	{
 		SpawnPlatform();
