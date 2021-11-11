@@ -1,11 +1,19 @@
 #include "RunnerPlayerController.h"
 #include "Runner/Characters/PlayerCharacter.h"
 
+void ARunnerPlayerController::CheckPlayersHeight()
+{
+	if(PlayerChar->GetActorLocation().Z < 0)
+		PlayerChar->OnDeath();
+}
+
 void ARunnerPlayerController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
 	HandleMovement(DeltaSeconds);
+	
+	CheckPlayersHeight();
 }
 
 void ARunnerPlayerController::BeginPlay()
@@ -16,7 +24,7 @@ void ARunnerPlayerController::BeginPlay()
 	ensure(PlayerChar != nullptr);
 	
 	CalculatePaths();
-	MovePlayerToMiddlePath();
+	MovePlayerToMiddlePath();	
 }
 // Calculate path's size and location
 void ARunnerPlayerController::CalculatePaths()

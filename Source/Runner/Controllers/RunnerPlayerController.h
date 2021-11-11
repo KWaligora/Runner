@@ -28,16 +28,19 @@ private:
 	TArray<FVector> Paths;
 	int CurrentPath;
 	float PathSize;
-	
+
 
 	
 // Methods
+	
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void BeginPlay() override;
 	// Calculate path's size and location
 	void CalculatePaths();
 	void MovePlayerToMiddlePath();
 	virtual void SetupInputComponent() override;
+	// If player is below 0 height, call OnDeath
+	void CheckPlayersHeight();
 	void MoveLeft();
 	void MoveRight();
 	// Interpolate to CurrentPath
