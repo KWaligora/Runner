@@ -22,6 +22,14 @@ void APickupBase::BeginPlay()
 {
 	Super::BeginPlay();
 
+// Get players actor for overlap test
+	UWorld* World = GetWorld();
+	if(!ensure(World != nullptr)) return;
+	APlayerController* PlayerController = World->GetFirstPlayerController();
+	if(!ensure(PlayerController != nullptr)) return;
+	Player = PlayerController->GetPawn();
+	if(!ensure(Player != nullptr)) return;
+	
 // Delegate Event
 	SphereComponent->OnComponentBeginOverlap.AddDynamic(this, &APickupBase::BeginOverlap);
 }
@@ -36,7 +44,7 @@ void APickupBase::Tick(float DeltaTime)
 void APickupBase::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if(OtherActor != this && OtherActor)
+	if(OtherActor == Player)
 	{		
 		OnPickup();
 	}
