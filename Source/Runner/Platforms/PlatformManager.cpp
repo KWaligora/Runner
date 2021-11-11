@@ -49,16 +49,16 @@ void APlatformManager::FindPlatforms()
 	}
 }
 
-// Spawn first 4 platforms
+// Spawn first 3 platforms
 void APlatformManager::InitLevel()
 {
-	for(int i = 0; i < 4; i++)
+	for(int i = 0; i < 3; i++)
 	{
 		OccupiedPlatforms.Add(FreePlatforms[i]);
 		FreePlatforms.RemoveAt(i);
 		
 		OccupiedPlatforms[i]->SetActorLocation(FVector(i*2200, 400, 0));
-		OccupiedPlatforms[i]->SetMovement(PlatformSpeed, true);
+		OccupiedPlatforms[i]->SetMovement(PlatformSpeed, true);		
 	}
 }
 
