@@ -1,8 +1,6 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "PlatformManager.h"
 
+#include "Components/BoxComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Runner/Platforms/PlatformBase.h"
 
@@ -12,6 +10,8 @@ APlatformManager::APlatformManager()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	BoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("Box Component"));
+	BoxComponent->SetCollisionProfileName(TEXT("Trigger"));
 }
 
 // Called when the game starts or when spawned
@@ -19,8 +19,15 @@ void APlatformManager::BeginPlay()
 {
 	Super::BeginPlay();
 
+	BoxComponent->OnComponentEndOverlap.AddDynamic(this, &APlatformManager::OnOverlapEnd);
+
 	FindPlatforms();
 	InitLevel();
+
+	int numO = OccupiedPlatforms.Num();
+	int numF = FreePlatforms.Num();
+	UE_LOG(LogTemp, Warning, TEXT("Begin play occupied: %d"), numO);
+	UE_LOG(LogTemp, Warning, TEXT("Begin play free: %d"), numF);
 }
 
 // Called every frame
@@ -47,17 +54,15 @@ void APlatformManager::FindPlatforms()
 	}
 }
 
-// Spawn first 3 platforms
+// Spawn first 4 platforms
 void APlatformManager::InitLevel()
 {
-	for(int i = 0; i < 3; i++)
+	for(int i = 0; i < 4; i++)
 	{
-		FreePlatforms[i]->SetActorLocation(FVector(i*2200, 400, 0));
 		OccupiedPlatforms.Add(FreePlatforms[i]);
-	}
-	for(int i = 0; i < 3; i++)
-	{
 		FreePlatforms.RemoveAt(i);
+		
+		OccupiedPlatforms[i]->SetActorLocation(FVector(i*2200, 400, 0));
 		OccupiedPlatforms[i]->SetMovement(PlatformSpeed, true);
 	}
 }
@@ -65,17 +70,48 @@ void APlatformManager::InitLevel()
 void APlatformManager::CheckOccupied()
 {
 	for(int i = 0; i < OccupiedPlatforms.Num(); i++)
-	{
-		if(OccupiedPlatforms[i]->GetActorLocation().X < -5000)
+		{
+		if(OccupiedPlatforms[i]->GetActorLocation().X < -1000)
 		{
 			FreePlatforms.Add(OccupiedPlatforms[i]);
 			OccupiedPlatforms.RemoveAt(i);
+
+			int numO = OccupiedPlatforms.Num();
+			int numF = FreePlatforms.Num();
+			UE_LOG(LogTemp, Warning, TEXT("After CheckOccupied occupied: %d"), numO);
+			UE_LOG(LogTemp, Warning, TEXT("After CheckOccupied free: %d"), numF);
 		}
 	}
 }
 
+void APlatformManager::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	UE_LOG(LogTemp, Warning, TEXT("end Overlap"));
+	if(OtherActor != nullptr && OtherActor != this)
+	{
+		SpawnPlatform();
+	}	
+
+	int numO = OccupiedPlatforms.Num();
+	int numF = FreePlatforms.Num();
+	UE_LOG(LogTemp, Warning, TEXT("After spawn occupied: %d"), numO);
+	UE_LOG(LogTemp, Warning, TEXT("After spawn free: %d"), numF);
+}
+
 void APlatformManager::SpawnPlatform()
 {
-	
+	if(FreePlatforms.Num() < 1) return;
+	int RandomNumber = FMath::RandRange(0, FreePlatforms.Num() - 1);
+
+	APlatformBase* Platform = FreePlatforms[RandomNumber];
+	FreePlatforms.RemoveAt(RandomNumber);
+
+	FVector NewLocation = FVector(0,400,0);
+	NewLocation.X = GetActorLocation().X + PlatformsGap + Platform->GetOriginOffset();
+	Platform->SetActorLocation(NewLocation);
+	Platform->SetMovement(PlatformSpeed, true);
+
+	OccupiedPlatforms.Add(Platform);
 }
 

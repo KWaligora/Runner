@@ -27,9 +27,14 @@ public:
 	float GetOriginOffset() { return OriginOffset; }
 
 protected:
+// Components
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* StaticMesh;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	class UBoxComponent* BoxComponent;
+	
+// Exposed
 	// Length between platforms edge and origin
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Movement", meta = (AllowPrivateAccess = "true"))
 	float OriginOffset;

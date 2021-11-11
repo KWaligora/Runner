@@ -25,6 +25,10 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
+// Components
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	class UBoxComponent* BoxComponent;
+	
 // Exposed
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Platforms", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<class APlatformBase> PlatformClass;
@@ -40,8 +44,11 @@ private:
 
 	// Get all platforms from scene to array
 	void FindPlatforms();
-	// Spawn first 3 platforms
+	// Spawn first 4 platforms
 	void InitLevel();
 	void SpawnPlatform();
 	void CheckOccupied();
+
+	UFUNCTION()
+	void OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 };
