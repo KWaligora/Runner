@@ -3,25 +3,32 @@
 
 #include "PlatformContentManager.h"
 
-// Sets default values
-APlatformContentManager::APlatformContentManager()
+// Sets default values for this component's properties
+UPlatformContentManager::UPlatformContentManager()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
+	// off to improve performance if you don't need them.
+	PrimaryComponentTick.bCanEverTick = true;
 
+	// ...
 }
 
-// Called when the game starts or when spawned
-void APlatformContentManager::BeginPlay()
+
+// Called when the game starts
+void UPlatformContentManager::BeginPlay()
 {
 	Super::BeginPlay();
+
+	// ...
 	
 }
 
-// Called every frame
-void APlatformContentManager::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
 
+// Called every frame
+void UPlatformContentManager::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	// ...
 }
 

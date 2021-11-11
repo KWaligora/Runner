@@ -11,4 +11,10 @@ class RUNNER_API ARunnerGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 	
+public:
+	ARunnerGameModeBase(const FObjectInitializer& ObjectInitializer);
+	
+private:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	class UPlatformContentManager* PlatformContentManager;
 };
