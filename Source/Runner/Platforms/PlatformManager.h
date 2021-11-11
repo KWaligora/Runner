@@ -24,11 +24,22 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
+// Exposed
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Platforms", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<class APlatformBase> PlatformClass;
-	
-	TArray<class APlatformBase*> Platforms;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platforms", meta = (AllowPrivateAccess = "true"))
+	float PlatformSpeed = 500;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platforms", meta = (AllowPrivateAccess = "true"))
+	float PlatformsGap = 600;
+// non-Exposed	
+	TArray<class APlatformBase*> FreePlatforms;
+	TArray<class APlatformBase*> OccupiedPlatforms;
 
 	// Get all platforms from scene to array
 	void FindPlatforms();
+	// Spawn first 3 platforms
+	void InitLevel();
+	void SpawnPlatform();
 };

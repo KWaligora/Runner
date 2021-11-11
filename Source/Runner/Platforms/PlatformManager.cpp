@@ -20,6 +20,7 @@ void APlatformManager::BeginPlay()
 	Super::BeginPlay();
 
 	FindPlatforms();
+	InitLevel();
 }
 
 // Called every frame
@@ -40,8 +41,28 @@ void APlatformManager::FindPlatforms()
 		APlatformBase* Platform = Cast<APlatformBase>(Actor);
 		if(Platform != nullptr)
 		{
-			Platforms.Add(Platform);
+			FreePlatforms.Add(Platform);
 		}
 	}
+}
+
+// Spawn first 3 platforms
+void APlatformManager::InitLevel()
+{
+	for(int i = 0; i < 3; i++)
+	{
+		FreePlatforms[i]->SetActorLocation(FVector(i*2200, 400, 0));
+		OccupiedPlatforms.Add(FreePlatforms[i]);
+	}
+	for(int i = 0; i < 3; i++)
+	{
+		FreePlatforms.RemoveAt(i);
+		OccupiedPlatforms[i]->SetMovement(PlatformSpeed, true);
+	}
+}
+
+void APlatformManager::SpawnPlatform()
+{
+	
 }
 

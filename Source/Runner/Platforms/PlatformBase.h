@@ -23,8 +23,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	// Allow move or stop move
-	void SetMovement(bool CanMove);
-	void SetMovement(float Speed, bool Value = true);
+	void SetMovement(float Speed, bool Value);
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
@@ -37,8 +36,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement", meta = (AllowPrivateAccess = "true"))
 	bool CanMove = false;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement", meta = (AllowPrivateAccess = "true"))
-	float MovementSpeed = 0;
-	
+
+	float MovementSpeed = 0;	
 	void HandleMove(float DeltaTime);
 };

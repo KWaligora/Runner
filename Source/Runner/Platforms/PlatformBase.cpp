@@ -28,11 +28,6 @@ void APlatformBase::Tick(float DeltaTime)
 	HandleMove(DeltaTime);	
 }
 
-// Allow move or stop move
-void APlatformBase::SetMovement(bool Value)
-{
-	CanMove = Value;
-}
 // Allow move or stop move and set movement speed
 void APlatformBase::SetMovement(float Speed, bool Value)
 {
