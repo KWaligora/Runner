@@ -44,8 +44,6 @@ private:
 
 	// Get all platforms from scene to array
 	void FindPlatforms();
-	// Spawn first 3 platforms
-	void InitLevel();
 	void SpawnPlatform();
 	void CheckOccupied();
 

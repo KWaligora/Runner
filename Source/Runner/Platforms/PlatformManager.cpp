@@ -22,7 +22,6 @@ void APlatformManager::BeginPlay()
 	BoxComponent->OnComponentEndOverlap.AddDynamic(this, &APlatformManager::OnOverlapEnd);
 
 	FindPlatforms();
-	InitLevel();
 }
 
 // Called every frame
@@ -44,21 +43,9 @@ void APlatformManager::FindPlatforms()
 		APlatformBase* Platform = Cast<APlatformBase>(Actor);
 		if(Platform != nullptr)
 		{
-			FreePlatforms.Add(Platform);
+			OccupiedPlatforms.Add(Platform);
+			Platform->SetMovement(PlatformSpeed, true);
 		}
-	}
-}
-
-// Spawn first 3 platforms
-void APlatformManager::InitLevel()
-{
-	for(int i = 0; i < 3; i++)
-	{
-		OccupiedPlatforms.Add(FreePlatforms[i]);
-		FreePlatforms.RemoveAt(i);
-		
-		OccupiedPlatforms[i]->SetActorLocation(FVector(i*2200, 400, 0));
-		OccupiedPlatforms[i]->SetMovement(PlatformSpeed, true);		
 	}
 }
 

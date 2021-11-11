@@ -39,7 +39,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement", meta = (AllowPrivateAccess = "true"))
 	bool CanMove = false;
 	
-
-	float MovementSpeed = 0;	
+	float MovementSpeed = 0;
+	
 	void HandleMove(float DeltaTime);
 };
