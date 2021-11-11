@@ -16,12 +16,8 @@ UPlatformContentManager::UPlatformContentManager()
 void UPlatformContentManager::BeginPlay()
 {
 	Super::BeginPlay();
-
-	TArray<AActor*> OutActors;
-	UGameplayStatics::GetAllActorsWithInterface(GetWorld(), UPlatformContent::StaticClass(), OutActors);
 	
-	int num = OutActors.Num();
-	UE_LOG(LogTemp, Warning, TEXT("Contents: %d"), num);	
+	FindAllPlatformContent();
 }
 
 
@@ -30,6 +26,33 @@ void UPlatformContentManager::TickComponent(float DeltaTime, ELevelTick TickType
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
+	CheckOccupied();
+}
+
+void UPlatformContentManager::FindAllPlatformContent()
+{
+	TArray<AActor*> OutActors;
+	UGameplayStatics::GetAllActorsWithInterface(GetWorld(), UPlatformContent::StaticClass(), OutActors);
+
+	for(AActor* Actor : OutActors)
+	{
+		IPlatformContent* PlatformContent = Cast<IPlatformContent>(Actor);
+		if(PlatformContent != nullptr)
+		{
+			OccupiedContent.Add(PlatformContent);
+		}
+	}
+}
+
+void UPlatformContentManager::CheckOccupied()
+{
+	for(int i = 0; i < OccupiedContent.Num(); i++)
+	{
+		if(OccupiedContent[i]->GetLocation().X < -1000)
+		{
+			FreeContent.Add(OccupiedContent[i]);
+			OccupiedContent.RemoveAt(i);
+		}
+	}
 }
 

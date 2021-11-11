@@ -14,7 +14,7 @@ class RUNNER_API UPlatformContentManager : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UPlatformContentManager();
-
+	
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -24,6 +24,9 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
-	//TArray<class IPlatformContent> OccupiedContent;
-	//TArray<class IPlatformContent> FreeContent;
+	TArray<class IPlatformContent*> OccupiedContent;
+	TArray<class IPlatformContent*> FreeContent;
+
+	void FindAllPlatformContent();
+	void CheckOccupied();
 };

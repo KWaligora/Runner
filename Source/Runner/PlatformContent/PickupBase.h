@@ -24,6 +24,10 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+// IPlatformContent implementation
+
+	virtual FVector GetLocation()  override { return  GetActorLocation(); }
+	virtual void SetLocation(FVector Location) override { SetActorLocation(Location); } 
 
 protected:
 // Components
