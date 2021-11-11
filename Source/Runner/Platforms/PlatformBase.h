@@ -30,9 +30,6 @@ protected:
 // Components
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* StaticMesh;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	class UBoxComponent* BoxComponent;
 	
 // Exposed
 	// Length between platforms edge and origin

@@ -23,11 +23,6 @@ void APlatformManager::BeginPlay()
 
 	FindPlatforms();
 	InitLevel();
-
-	int numO = OccupiedPlatforms.Num();
-	int numF = FreePlatforms.Num();
-	UE_LOG(LogTemp, Warning, TEXT("Begin play occupied: %d"), numO);
-	UE_LOG(LogTemp, Warning, TEXT("Begin play free: %d"), numF);
 }
 
 // Called every frame
@@ -75,11 +70,6 @@ void APlatformManager::CheckOccupied()
 		{
 			FreePlatforms.Add(OccupiedPlatforms[i]);
 			OccupiedPlatforms.RemoveAt(i);
-
-			int numO = OccupiedPlatforms.Num();
-			int numF = FreePlatforms.Num();
-			UE_LOG(LogTemp, Warning, TEXT("After CheckOccupied occupied: %d"), numO);
-			UE_LOG(LogTemp, Warning, TEXT("After CheckOccupied free: %d"), numF);
 		}
 	}
 }
@@ -92,11 +82,6 @@ void APlatformManager::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor*
 	{
 		SpawnPlatform();
 	}	
-
-	int numO = OccupiedPlatforms.Num();
-	int numF = FreePlatforms.Num();
-	UE_LOG(LogTemp, Warning, TEXT("After spawn occupied: %d"), numO);
-	UE_LOG(LogTemp, Warning, TEXT("After spawn free: %d"), numF);
 }
 
 void APlatformManager::SpawnPlatform()
