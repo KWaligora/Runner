@@ -56,3 +56,9 @@ void UPlatformContentManager::CheckOccupied()
 	}
 }
 
+IPlatformContent* UPlatformContentManager::GetContent()
+{
+	int RandomNum = FMath::RandRange(0, FreeContent.Num() - 1);
+	return  FreeContent[RandomNum];
+}
+

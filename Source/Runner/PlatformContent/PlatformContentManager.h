@@ -6,6 +6,8 @@
 #include "Components/ActorComponent.h"
 #include "PlatformContentManager.generated.h"
 
+class IPlatformContent;
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class RUNNER_API UPlatformContentManager : public UActorComponent
 {
@@ -14,6 +16,7 @@ class RUNNER_API UPlatformContentManager : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UPlatformContentManager();
+	IPlatformContent* GetContent();
 	
 protected:
 	// Called when the game starts
@@ -24,8 +27,8 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
-	TArray<class IPlatformContent*> OccupiedContent;
-	TArray<class IPlatformContent*> FreeContent;
+	TArray<IPlatformContent*> OccupiedContent;
+	TArray<IPlatformContent*> FreeContent;
 
 	void FindAllPlatformContent();
 	void CheckOccupied();
