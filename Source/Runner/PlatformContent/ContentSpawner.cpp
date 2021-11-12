@@ -48,6 +48,8 @@ void UContentSpawner::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 void UContentSpawner::SetupContent()
 {
 	CurrentContent = ContentManager->GetContent();
+	if(CurrentContent == nullptr) return;
+	
 	CurrentContent->OnEnableBP();
 	CurrentPath.Y = GameMode->GetRandomPath().Y;
 }

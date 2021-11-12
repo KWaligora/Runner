@@ -57,7 +57,9 @@ void UPlatformContentManager::CheckOccupied()
 }
 
 IPlatformContent* UPlatformContentManager::GetContent()
-{
+{	
+	if(FreeContent.Num() < 1) return nullptr;
+	
 	int RandomNum = FMath::RandRange(0, FreeContent.Num() - 1);
 	IPlatformContent* Content =  FreeContent[RandomNum];
 	
