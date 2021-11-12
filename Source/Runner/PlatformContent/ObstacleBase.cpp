@@ -43,6 +43,7 @@ void AObstacleBase::Tick(float DeltaTime)
 void AObstacleBase::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent,
 	FVector NormalImpulse, const FHitResult& Hit)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Hit"));
 	if(OtherActor == Player)
 	{
 		OnCollision();

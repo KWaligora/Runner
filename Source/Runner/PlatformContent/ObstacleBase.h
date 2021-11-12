@@ -1,13 +1,12 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
+#include "PlatformContent.h"
 #include "GameFramework/Actor.h"
 #include "ObstacleBase.generated.h"
 
 UCLASS()
-class RUNNER_API AObstacleBase : public AActor
+class RUNNER_API AObstacleBase : public AActor, public IPlatformContent
 {
 	GENERATED_BODY()
 	
@@ -23,6 +22,12 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	// IPlatformContent implementation
+	virtual FVector GetLocation()  override { return  GetActorLocation(); }
+	virtual void SetLocation(FVector Location) override { SetActorLocation(Location); }
+	virtual bool IsActiveBP() override {return IsActive(); } 
+	virtual void OnEnableBP() override { OnEnable(); }
+
 protected:
 // Components
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
@@ -32,6 +37,10 @@ protected:
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnCollision();
+	UFUNCTION(BlueprintImplementableEvent)
+	bool IsActive();
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnEnable();
 
 private:
 	UPROPERTY()
