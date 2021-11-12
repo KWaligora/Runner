@@ -14,6 +14,16 @@ APlatformManager::APlatformManager()
 	BoxComponent->SetCollisionProfileName(TEXT("Trigger"));
 }
 
+void APlatformManager::SetSpeed(float Speed)
+{
+	PlatformSpeed = Speed;
+
+	for(APlatformBase* Platform : OccupiedPlatforms)
+	{
+		Platform->SetMovement(Speed);
+	}
+}
+
 // Called when the game starts or when spawned
 void APlatformManager::BeginPlay()
 {
@@ -53,8 +63,9 @@ void APlatformManager::CheckOccupied()
 {
 	for(int i = 0; i < OccupiedPlatforms.Num(); i++)
 		{
-		if(OccupiedPlatforms[i]->GetActorLocation().X < -1000)
+		if(OccupiedPlatforms[i]->GetActorLocation().X < -2000)
 		{
+			OccupiedPlatforms[i]->SetMovement(0, false);
 			FreePlatforms.Add(OccupiedPlatforms[i]);
 			OccupiedPlatforms.RemoveAt(i);
 		}

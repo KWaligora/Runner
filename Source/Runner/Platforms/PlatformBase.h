@@ -28,6 +28,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	// Allow move or stop move
 	void SetMovement(float Speed, bool Value);
+	void SetMovement(float Speed) { MovementSpeed = Speed; }
 // Inline
 	float GetOriginOffset() { return OriginOffset; }
 

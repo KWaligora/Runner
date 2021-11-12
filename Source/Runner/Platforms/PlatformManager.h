@@ -14,7 +14,10 @@ class RUNNER_API APlatformManager : public AActor
 public:	
 	// Sets default values for this actor's properties
 	APlatformManager();
-
+	
+	UFUNCTION(BlueprintCallable)
+	void SetSpeed(float Speed);
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -23,6 +26,8 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	
 
 private:
 // Components
