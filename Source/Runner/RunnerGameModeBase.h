@@ -18,6 +18,7 @@ public:
 	UPlatformContentManager* GetContentManager() { return PlatformContentManager; }
 	void GetPaths(TArray<FVector>& PathsArray);
 	float GetPathSize() { return PathSize; }
+	FVector GetRandomPath();
 	
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))

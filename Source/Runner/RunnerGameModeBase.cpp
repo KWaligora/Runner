@@ -17,6 +17,12 @@ void ARunnerGameModeBase::GetPaths(TArray<FVector>& PathsArray)
 	PathsArray = Paths;
 }
 
+FVector ARunnerGameModeBase::GetRandomPath()
+{
+	int RandomNum = FMath::RandRange(0, Paths.Num() - 1);
+	return Paths[RandomNum];
+}
+
 void ARunnerGameModeBase::CalculatePaths()
 {
 	PathSize = TrackSize / PathCount;

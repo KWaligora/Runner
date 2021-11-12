@@ -29,8 +29,12 @@ public:
 
 
 private:
-	class IPlatformContent* CurrentContent;
-	
 	UPROPERTY()
 	class UPlatformContentManager* ContentManager;
+	UPROPERTY()
+	class ARunnerGameModeBase* GameMode;
+	
+	class IPlatformContent* CurrentContent;
+	FVector CurrentPath;
+	FVector CurrentLocation;
 };

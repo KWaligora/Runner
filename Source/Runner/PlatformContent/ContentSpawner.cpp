@@ -19,7 +19,7 @@ void UContentSpawner::BeginPlay()
 {
 	Super::BeginPlay();
 // Get ContentManager from GameMode
-	ARunnerGameModeBase* GameMode =  Cast<ARunnerGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
+	GameMode =  Cast<ARunnerGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
 	if(!ensure(GameMode != nullptr)) return;
 	ContentManager = GameMode->GetContentManager();
 	if(!ensure(ContentManager != nullptr)) return;
@@ -29,6 +29,7 @@ void UContentSpawner::BeginPlay()
 
 // Subscribe OnSpawn Event
 	PlatformBase->OnSpawn().AddUObject(this, &UContentSpawner::SetupContent);
+	
 }
 
 
@@ -38,12 +39,17 @@ void UContentSpawner::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	if(CurrentContent != nullptr && CurrentContent->IsActiveBP())
+	{
+		CurrentLocation = GetComponentLocation();
+		CurrentLocation.Y = CurrentPath.Y;
 		CurrentContent->SetLocation(GetComponentLocation());
+	}
 }
 
 void UContentSpawner::SetupContent()
 {
 	CurrentContent = ContentManager->GetContent();
 	CurrentContent->OnEnableBP();
+	CurrentPath.Y = GameMode->GetRandomPath().Y;
 }
 
