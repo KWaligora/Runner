@@ -8,4 +8,20 @@ ARunnerGameModeBase::ARunnerGameModeBase(const FObjectInitializer& ObjectInitial
 {
 	// Setup Components
 	PlatformContentManager = CreateDefaultSubobject<UPlatformContentManager>("PlatformContentManager");
+	
+	CalculatePaths();
+}
+
+void ARunnerGameModeBase::GetPaths(TArray<FVector>& PathsArray)
+{
+	PathsArray = Paths;
+}
+
+void ARunnerGameModeBase::CalculatePaths()
+{
+	PathSize = TrackSize / PathCount;
+	for(int i = 0; i < PathCount; i++)
+	{
+		Paths.Add(FVector(0, PathSize / 2 + i * PathSize, 130));
+	}
 }

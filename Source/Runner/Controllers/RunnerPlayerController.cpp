@@ -1,4 +1,7 @@
 #include "RunnerPlayerController.h"
+
+#include "Kismet/GameplayStatics.h"
+#include "Runner/RunnerGameModeBase.h"
 #include "Runner/Characters/PlayerCharacter.h"
 
 void ARunnerPlayerController::CheckPlayersHeight()
@@ -19,28 +22,26 @@ void ARunnerPlayerController::Tick(float DeltaSeconds)
 void ARunnerPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-
-	PlayerChar = Cast<APlayerCharacter>(GetCharacter());
-	ensure(PlayerChar != nullptr);
 	
-	CalculatePaths();
+// Get refs
+	PlayerChar = Cast<APlayerCharacter>(GetCharacter());
+	if(!ensure(PlayerChar != nullptr)) return;
+	
+	ARunnerGameModeBase* GameMode = Cast<ARunnerGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
+	if(!ensure(GameMode != nullptr)) return;
+	
+// Setup paths data
+	GameMode->GetPaths(Paths);
+	PathSize = GameMode->GetPathSize();
+	
 	MovePlayerToMiddlePath();	
-}
-// Calculate path's size and location
-void ARunnerPlayerController::CalculatePaths()
-{
-	PathSize = TrackSize / PathCount;
-	for(int i = 0; i < PathCount; i++)
-	{
-		Paths.Add(FVector(0, PathSize / 2 + i * PathSize, 130));
-	}
 }
 
 void ARunnerPlayerController::MovePlayerToMiddlePath()
 {
 	if(Paths.Num() <= 0) return;
 	
-	CurrentPath = FMath::DivideAndRoundDown(PathCount, 2);	
+	CurrentPath = FMath::DivideAndRoundDown(Paths.Num(), 2);	
 	PlayerChar->SetActorLocation(Paths[CurrentPath]);
 }
 

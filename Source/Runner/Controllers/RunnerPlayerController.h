@@ -16,12 +16,6 @@ private:
 	class APlayerCharacter* PlayerChar;
 	
 // Movement variables
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement", meta = (AllowPrivateAccess = "true"))
-	int PathCount = 3;
-	// Size of all paths together
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement", meta = (AllowPrivateAccess = "true"))	
-	float TrackSize = 800;
-	// Result is 1 * PathChangeSpeed, in seconds
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement", meta = (AllowPrivateAccess = "true"))	
 	float PathChangeSpeed = 2;
 	
@@ -32,8 +26,6 @@ private:
 // Methods
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void BeginPlay() override;
-	// Calculate path's size and location
-	void CalculatePaths();
 	void MovePlayerToMiddlePath();
 	virtual void SetupInputComponent() override;
 	// If player is below 0 height, call OnDeath
