@@ -24,11 +24,13 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	
 // IPlatformContent implementation
-
 	virtual FVector GetLocation()  override { return  GetActorLocation(); }
-	virtual void SetLocation(FVector Location) override { SetActorLocation(Location); } 
-
+	virtual void SetLocation(FVector Location) override { SetActorLocation(Location); }
+	virtual bool IsActiveBP() override {return IsActive(); } 
+	virtual void OnEnableBP() override { OnEnable(); } 
+	
 protected:
 // Components
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
@@ -46,4 +48,10 @@ protected:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnPickup();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	bool IsActive();
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnEnable();
 };

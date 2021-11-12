@@ -39,12 +39,13 @@ void UContentSpawner::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	if(CurrentContent != nullptr)
+	if(CurrentContent != nullptr && CurrentContent->IsActiveBP())
 		CurrentContent->SetLocation(GetComponentLocation());
 }
 
 void UContentSpawner::SetupContent()
 {
 	CurrentContent = ContentManager->GetContent();
+	CurrentContent->OnEnableBP();
 }
 

@@ -13,9 +13,6 @@ class UPlatformContent : public UInterface
 	GENERATED_BODY()
 };
 
-/**
- * 
- */
 class RUNNER_API IPlatformContent
 {
 	GENERATED_BODY()
@@ -24,4 +21,6 @@ class RUNNER_API IPlatformContent
 public:
 	virtual FVector GetLocation() = 0;
 	virtual void SetLocation(FVector Location) = 0;
+	virtual void OnEnableBP() = 0;
+	virtual bool IsActiveBP() = 0;
 };
