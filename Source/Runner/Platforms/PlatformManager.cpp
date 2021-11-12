@@ -77,11 +77,12 @@ void APlatformManager::SpawnPlatform()
 
 	APlatformBase* Platform = FreePlatforms[RandomNumber];
 	FreePlatforms.RemoveAt(RandomNumber);
-
+	
 	FVector NewLocation = FVector(0,400,0);
 	NewLocation.X = GetActorLocation().X + PlatformsGap + Platform->GetOriginOffset();
 	Platform->SetActorLocation(NewLocation);
 	Platform->SetMovement(PlatformSpeed, true);
+	Platform->OnSpawn().Broadcast();
 
 	OccupiedPlatforms.Add(Platform);
 }

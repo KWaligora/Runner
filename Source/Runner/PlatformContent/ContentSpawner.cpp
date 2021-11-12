@@ -1,7 +1,10 @@
 #include "ContentSpawner.h"
 
+#include "PlatformContent.h"
+#include "PlatformContentManager.h"
 #include "Kismet/GameplayStatics.h"
 #include "Runner/RunnerGameModeBase.h"
+#include "Runner/Platforms/PlatformBase.h"
 
 // Sets default values for this component's properties
 UContentSpawner::UContentSpawner()
@@ -20,8 +23,14 @@ void UContentSpawner::BeginPlay()
 // Get ContentManager from GameMode
 	ARunnerGameModeBase* GameMode =  Cast<ARunnerGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
 	if(!ensure(GameMode != nullptr)) return;
-	UPlatformContentManager* ContentManager = GameMode->GetContentManager();
+	ContentManager = GameMode->GetContentManager();
 	if(!ensure(ContentManager != nullptr)) return;
+	
+	APlatformBase* PlatformBase = Cast<APlatformBase>(GetOwner());
+	if(!ensure(PlatformBase != nullptr)) return;
+
+// Subscribe OnSpawn Event
+	PlatformBase->OnSpawn().AddUObject(this, &UContentSpawner::SetupContent);
 }
 
 
@@ -30,11 +39,12 @@ void UContentSpawner::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
+	if(CurrentContent != nullptr)
+		CurrentContent->SetLocation(GetComponentLocation());
 }
 
 void UContentSpawner::SetupContent()
 {
-	
+	CurrentContent = ContentManager->GetContent();
 }
 

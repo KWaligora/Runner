@@ -11,7 +11,11 @@ class RUNNER_API APlatformBase : public AActor
 {
 	GENERATED_BODY()
 	
-public:	
+public:
+	// Create Spawn event
+	DECLARE_EVENT( APlatformBase, FSpawnEvent )
+	FSpawnEvent& OnSpawn() { return SpawnEvent; }
+	
 	// Sets default values for this actor's properties
 	APlatformBase();
 
@@ -24,6 +28,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	// Allow move or stop move
 	void SetMovement(float Speed, bool Value);
+// Inline
 	float GetOriginOffset() { return OriginOffset; }
 
 protected:
@@ -42,4 +47,8 @@ protected:
 	float MovementSpeed = 0;
 	
 	void HandleMove(float DeltaTime);
+
+private:
+	// Event Handle
+	FSpawnEvent SpawnEvent;
 };
