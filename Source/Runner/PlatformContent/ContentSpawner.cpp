@@ -19,7 +19,7 @@ void UContentSpawner::BeginPlay()
 {
 	Super::BeginPlay();
 // Get ContentManager from GameMode
-	GameMode =  Cast<ARunnerGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
+	GameMode = Cast<ARunnerGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
 	if(!ensure(GameMode != nullptr)) return;
 	ContentManager = GameMode->GetContentManager();
 	if(!ensure(ContentManager != nullptr)) return;
@@ -32,7 +32,6 @@ void UContentSpawner::BeginPlay()
 	
 }
 
-
 // Called every frame
 void UContentSpawner::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
@@ -42,7 +41,7 @@ void UContentSpawner::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 	{
 		CurrentLocation = GetComponentLocation();
 		CurrentLocation.Y = CurrentPath.Y;
-		CurrentContent->SetLocation(GetComponentLocation());
+		CurrentContent->SetLocation(CurrentLocation);
 	}
 }
 

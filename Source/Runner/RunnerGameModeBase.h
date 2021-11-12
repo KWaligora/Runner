@@ -16,7 +16,7 @@ class RUNNER_API ARunnerGameModeBase : public AGameModeBase
 public:
 	ARunnerGameModeBase(const FObjectInitializer& ObjectInitializer);
 	UPlatformContentManager* GetContentManager() { return PlatformContentManager; }
-	void GetPaths(TArray<FVector>& PathsArray);
+	void GetPaths(TArray<FVector>& PathArray);
 	float GetPathSize() { return PathSize; }
 	FVector GetRandomPath();
 	
@@ -25,10 +25,10 @@ private:
 	UPlatformContentManager* PlatformContentManager;
 	
 // Paths options
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Paths", meta = (AllowPrivateAccess = "true"))
 	int PathCount = 3;
 	// Size of all paths together
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement", meta = (AllowPrivateAccess = "true"))	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Paths", meta = (AllowPrivateAccess = "true"))	
 	float TrackSize = 800;
 
 	TArray<FVector> Paths;

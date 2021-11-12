@@ -34,7 +34,10 @@ void ARunnerPlayerController::BeginPlay()
 	GameMode->GetPaths(Paths);
 	PathSize = GameMode->GetPathSize();
 	
-	MovePlayerToMiddlePath();	
+	MovePlayerToMiddlePath();
+
+	int num = Paths.Num();
+	UE_LOG(LogTemp, Warning, TEXT("Paths: %d"), num);
 }
 
 void ARunnerPlayerController::MovePlayerToMiddlePath()

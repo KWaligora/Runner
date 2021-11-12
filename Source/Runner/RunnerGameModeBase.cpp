@@ -8,13 +8,12 @@ ARunnerGameModeBase::ARunnerGameModeBase(const FObjectInitializer& ObjectInitial
 {
 	// Setup Components
 	PlatformContentManager = CreateDefaultSubobject<UPlatformContentManager>("PlatformContentManager");
-	
-	CalculatePaths();
 }
 
-void ARunnerGameModeBase::GetPaths(TArray<FVector>& PathsArray)
+void ARunnerGameModeBase::GetPaths(TArray<FVector>& PathArray)
 {
-	PathsArray = Paths;
+	CalculatePaths();
+	PathArray = Paths;
 }
 
 FVector ARunnerGameModeBase::GetRandomPath()
