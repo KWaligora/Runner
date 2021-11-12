@@ -29,7 +29,7 @@ public:
 	virtual FVector GetLocation()  override { return  GetActorLocation(); }
 	virtual void SetLocation(FVector Location) override { SetActorLocation(Location); }
 	virtual bool IsActiveBP() override {return IsActive(); } 
-	virtual void OnEnableBP() override { OnEnable(); } 
+	virtual void OnEnableBP() override { OnEnable(); }
 	
 protected:
 // Components
